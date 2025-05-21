@@ -21,7 +21,7 @@
 ### **1. Клонирование репозитория**  
 ```bash
 git clone https://github.com/твой-username/blog-api.git
-cd blog-api
+cd 01-api-for-the-blog
 ```  
 
 ### **2. Установка зависимостей**  
