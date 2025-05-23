@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    justify-content: center;
+
+    min-height: 100vh;
+}
+
+.container {
+    width: 80%;
+}
+.main {
+    margin-top: 150px;
+    padding-inline: 50px;
+}
+.content {
+}
+.content__title-h1 {
+    color: rgb(147, 59, 165);
+}

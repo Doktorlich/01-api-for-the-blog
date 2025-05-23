@@ -20,7 +20,7 @@
 
 ### **1. Клонирование репозитория**  
 ```bash
-git clone https://github.com/твой-username/blog-api.git
+git clone https://github.com/Doktorlich/01-api-for-the-blog.git
 cd 01-api-for-the-blog
 ```  
 

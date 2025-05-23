@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import routeIndex from "./routes/index";
+import path from "path";
 dotenv.config();
 
 const app = express();
@@ -9,18 +10,23 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(routeIndex);
 
 mongoose
-  .connect(`${process.env.MONGODB_URI}`)
-  .then(() => {
-    app.listen(process.env.PORT, (error) => {
-      if (error) {
-        return error;
-      }
-      console.log("Server successfully started");
+    .connect(`${process.env.MONGODB_URI}`)
+    .then(() => {
+        app.listen(process.env.PORT, error => {
+            if (error) {
+                return error;
+            }
+            console.log("Server successfully started");
+        });
+    })
+    .catch(error => {
+        console.error("Failed to connect to MongoDB database", error);
     });
-  })
-  .catch((error) => {
-    console.error("Failed to connect to MongoDB database", error);
-  });

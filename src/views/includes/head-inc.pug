@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        link(rel="stylesheet", href="/css/header.css")
+        link(rel="stylesheet", href="/css/reset.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        link(rel="stylesheet", href="/css/index.css")
+        block styles
+
+        block title 
+    body
+        div.container
+            header.main-header
+                nav.main-header__nav
+                    ul.main-header__item-list
+                        li.main-header__item
+                            a.main-header__link(href="/") Main
+                        li.main-header__item 
+                               p.main-header__pseudo-link Post
+                    ul.main-header__auth-list
+                        li.main-header__item
+                            a.main-header__link Login
+                        li.main-header__item
+                            a.main-header__link Sign in
+
+            block content
