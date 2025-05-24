@@ -20,7 +20,7 @@ app.use(routeIndex);
 mongoose
     .connect(`${process.env.MONGODB_URI}`)
     .then(() => {
-        app.listen(process.env.PORT, error => {
+        app.listen(process.env.PORT || 3000, error => {
             if (error) {
                 return error;
             }
