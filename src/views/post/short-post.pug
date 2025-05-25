@@ -1,12 +1,18 @@
-section.post
-    h2.post__title-h2 Title Post
-    p.post__short-description Some short description
-    p.post__name-creator Author name
-    ul.post__button-item-list
-        li.post__button-item
-            button.post__button View
-        li.post__button-item
-            button.post__button Edit
-        li.post__button-item
-            button.post__button Delete
-
+if posts.length > 0
+	h1.content__title-h1 Posts
+	article.post-list
+		each post in posts
+			section.post
+				h2.post__title-h2 #{post.title}
+				p.post__short-description #{post.content}
+				p.post__name-creator Author name
+				ul.post__button-item-list
+					li.post__button-item
+						a.post__button(href=("/post/")) View
+					li.post__button-item
+						a.post__button(href=("/post/"+post._id)) Edit
+					li.post__button-item
+						form(action="/post/"+post._id+"/delete", method="POST")
+							button.post__button(type="submit") Delete
+else
+	h1.content__title-h1 Posts not found

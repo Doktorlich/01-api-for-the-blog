@@ -19,7 +19,7 @@ html(lang="en")
                         li.main-header__item
                             a.main-header__link(href="/post" class=(path==="/post"?"active-page":"")) Main
                         li.main-header__item 
-                               p.main-header__pseudo-link Post
+                               p.main-header__pseudo-link(href="/post/create-post" class=(path==="/post/"+paramId ? "active-page":"")) Post
                         li.main-header__item
                             a.main-header__link(href="/post/create-post" class=(path==="/create-post"?"active-page":"")) Create post
                     ul.main-header__auth-list
