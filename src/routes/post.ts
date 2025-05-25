@@ -7,13 +7,14 @@ const router = Router();
 router.get("/create-post", postControllers.getCreatePost);
 router.post("/create-post", postControllers.createPost);
 
-router.get("/", postControllers.getPosts);
-
-router.get("/:postId", postControllers.getUpdatePost as RequestHandler);
+router.get("/:postId/update", postControllers.getUpdatePost as RequestHandler);
 // вместо PUT
 router.post("/:postId/update", postControllers.updatePost as RequestHandler);
 // вместо DELETE
 router.post("/:postId/delete", postControllers.deletePost);
-// router.get("/:postId", postControllers.getPost);
+
+router.get("/:postId", postControllers.getPost);
+
+router.get("/", postControllers.getPosts);
 
 export default router;

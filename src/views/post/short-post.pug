@@ -8,9 +8,9 @@ if posts.length > 0
 				p.post__name-creator Author name
 				ul.post__button-item-list
 					li.post__button-item
-						a.post__button(href=("/post/")) View
+						a.post__button(href=("/post/"+post._id)) View
 					li.post__button-item
-						a.post__button(href=("/post/"+post._id)) Edit
+						a.post__button(href=("/post/"+post._id +"/update")) Edit
 					li.post__button-item
 						form(action="/post/"+post._id+"/delete", method="POST")
 							button.post__button(type="submit") Delete

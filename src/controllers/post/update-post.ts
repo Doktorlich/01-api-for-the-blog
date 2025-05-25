@@ -16,7 +16,7 @@ async function getUpdatePost(req: Request, res: Response, next: NextFunction) {
     const title = post.title;
     const content = post.content;
     res.status(200).render("post/update-post", {
-        path: "/post/" + postId,
+        path: "/post/" + postId + "/update",
         paramId: postId,
         title: title,
         content: content,

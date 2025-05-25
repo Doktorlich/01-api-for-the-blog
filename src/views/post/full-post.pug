@@ -1,0 +1,14 @@
+extends ../includes/head-inc
+
+block styles
+	link(rel="stylesheet", href="/css/full-post.css")
+block title
+	title Test
+block content
+	main.content
+		hr
+		h2.post__title-h2 #{post.title}
+		p.post__content #{post.content}
+
+
+

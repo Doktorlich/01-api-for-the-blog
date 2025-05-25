@@ -5,6 +5,7 @@ import { deletePostControllers } from "./post/delete-post";
 
 export const postControllers = {
     getPosts: readPostControllers.getPosts,
+    getPost: readPostControllers.getPost,
     createPost: createPostControllers.createPost,
     getCreatePost: createPostControllers.getCreatePost,
     getUpdatePost: updatePostControllers.getUpdatePost,
