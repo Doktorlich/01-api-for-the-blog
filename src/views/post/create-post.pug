@@ -3,6 +3,7 @@ extends ../includes/head-inc
 block styles
 	link(rel="stylesheet", href="/css/post.css")
 	link(rel="stylesheet", href="/css/post-form.css")
+	link(rel="stylesheet", href="/css/validation-error.css")
 
 block title
 	title Test
@@ -13,8 +14,16 @@ block content
 		form.form(action="/post/create-post", method="POST")
 			label.label(for="input-title" ) Title post
 				input#input-title(type="text", name="title")
+				div.position__title
+					each error in validationErrors
+						if error.path ==="title"
+							include ../error/validation-error
 			label.label(for="input-content" ) Content post
 				textarea#input-content(name="content", cols="30", rows="10")
+				div.position__content
+					each error in validationErrors
+						if error.path === "content"
+							include ../error/validation-error
 			button.button-submit(type="submit") Create post
 
 

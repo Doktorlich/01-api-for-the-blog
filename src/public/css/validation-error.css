@@ -1,0 +1,25 @@
+.position__title{
+    position: relative;
+}
+.position__content{
+    position: relative;
+}
+.position__title .error {
+    position: absolute;
+left: 600px;
+    bottom: 50%;
+    border: 1px solid red;
+    width: 500px;
+}
+
+.position__content .error {
+    position: absolute;
+    left: 600px;
+    top: -150px;
+    border: 1px solid red;
+    width: 500px;
+}
+
+
+.error__message {
+}
