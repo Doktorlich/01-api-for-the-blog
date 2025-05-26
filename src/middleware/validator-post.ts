@@ -8,10 +8,7 @@ const validatorPost = {
             .withMessage("The title of the title should be between 5 and 50 characters"),
     ],
     content: [
-        body("content")
-            .trim()
-            .isLength({ min: 5, max: 1024 })
-            .withMessage("The content of the content field must be between 5 and 1024 characters"),
+        body("content").trim().isLength({ min: 5 }).withMessage("The content field must be at least 5 characters long"),
     ],
 };
 

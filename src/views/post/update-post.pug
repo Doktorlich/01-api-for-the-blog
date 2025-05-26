@@ -3,7 +3,7 @@ extends ../includes/head-inc
 block styles
 	link(rel="stylesheet", href="/css/post.css")
 	link(rel="stylesheet", href="/css/post-form.css")
-
+	link(rel="stylesheet", href="/css/validation-error.css")
 block title
 	title Test
 block content
@@ -12,9 +12,20 @@ block content
 		h1.content__title-h1 Create post
 		form.form(action=("/post/"+paramId+"/update"), method="POST")
 			label.label(for="input-title" ) Title post
-				input#input-title(type="text", name="title", value=title)
+				input#input-title(type="text", name="title", value=(oldInput && oldInput.title !== null? oldInput.title : title))
+				div.position__title
+					if countError > 0
+						each error in validationErrors
+							if error.path === "title"
+								include ../error/validation-error
 			label.label(for="input-content" ) Content post
-				textarea#input-content(name="content", cols="30", rows="10") #{content}
+				textarea#input-content(name="content", cols="30", rows="10") #{oldInput && oldInput.content !== null? oldInput.content : content }
+				div.position__content
+					if countError > 0
+						each error in validationErrors
+							if error.path === "content"
+								include ../error/validation-error
+			input(type="hidden", value=_id)
 			button.button-submit(type="submit") Update post
 
 

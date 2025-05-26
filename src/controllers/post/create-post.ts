@@ -24,7 +24,6 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
             errorMessage: errors.array()[0].msg,
             validationErrors: errors.array(),
             countError: errors.array().length,
-
             oldInput: {
                 title: title,
                 content: content,

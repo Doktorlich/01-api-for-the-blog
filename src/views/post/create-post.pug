@@ -13,17 +13,19 @@ block content
 		h1.content__title-h1 Create post
 		form.form(action="/post/create-post", method="POST")
 			label.label(for="input-title" ) Title post
-				input#input-title(type="text", name="title")
+				input#input-title(type="text", name="title" value=(oldInput && oldInput.title !== null? oldInput.title: ""))
 				div.position__title
-					each error in validationErrors
-						if error.path ==="title"
-							include ../error/validation-error
+					if countError > 0
+						each error in validationErrors
+							if error.path ==="title"
+								include ../error/validation-error
 			label.label(for="input-content" ) Content post
-				textarea#input-content(name="content", cols="30", rows="10")
+				textarea#input-content(name="content", cols="30", rows="10") #{oldInput && oldInput.content !== null? oldInput.content: ""}
 				div.position__content
-					each error in validationErrors
-						if error.path === "content"
-							include ../error/validation-error
+					if countError > 0
+						each error in validationErrors
+							if error.path === "content"
+								include ../error/validation-error
 			button.button-submit(type="submit") Create post
 
 

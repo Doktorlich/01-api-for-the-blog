@@ -12,7 +12,7 @@
 }
 
 .post__content{
-
+	text-align: justify;
 	line-height: 25px;
 	text-indent: 30px;
 }
