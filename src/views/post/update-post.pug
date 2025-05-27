@@ -9,7 +9,7 @@ block title
 block content
 	main.content
 		hr
-		h1.content__title-h1 Create post
+		h1.content__title-h1 Update post
 		form.form(action=("/post/"+paramId+"/update"), method="POST")
 			label.label(for="input-title" ) Title post
 				input#input-title(type="text", name="title", value=(oldInput && oldInput.title !== null? oldInput.title : title))
