@@ -1,11 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import PostSchema from "../../models/post";
 import { validationResult } from "express-validator";
-interface AppError extends Error {
-    httpStatusCode?: number;
-}
-type RequestBody = { _id: string; text: string; title: string; content: string; creator: string };
-type RequestParams = { postId: string };
+import { Error } from "mongoose";
+import { StatusError } from "../../types/error.types";
+import { RequestBody } from "../../types/post.types";
 
 async function getCreatePost(req: Request, res: Response, next: NextFunction) {
     res.status(200).render("post/create-post", {
@@ -40,6 +38,10 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
         console.log(newPost);
         await newPost.save();
         res.status(201).redirect("/");
-    } catch (err) {}
+    } catch (err: any) {
+        const error = new Error(err) as StatusError;
+        error.httpStatusCode = 500;
+        return next(error);
+    }
 }
 export const createPostControllers = { getCreatePost, createPost };

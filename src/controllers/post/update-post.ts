@@ -1,9 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import PostSchema from "../../models/post";
 import { validationResult } from "express-validator";
-
-type RequestBody = { _id: string; text: string; title: string; content: string; creator: string };
-type RequestParams = { postId: string };
+import { RequestBody, RequestParams } from "../../types/post.types";
 
 async function getUpdatePost(req: Request, res: Response, next: NextFunction) {
     const params = req.params as RequestParams;
