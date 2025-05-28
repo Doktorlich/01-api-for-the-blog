@@ -15,6 +15,52 @@ body {
 .content {
 }
 .content__title-h1 {
-
     color: rgb(147, 59, 165);
+}
+.pagination {
+
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    width: 280px;
+}
+.pagination__button {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+    background-color: rgb(147, 59, 165);
+    border-radius: 5px;
+    border: 1px solid rgb(147, 59, 165);
+}
+a.active {
+    border: 1px solid rgb(147, 59, 165);
+    border-radius: 5px;
+    color: rgb(147, 59, 165);
+    font-size: 20px;
+    font-weight: bold;
+}
+.pagination__button:active {
+    box-sizing: border-box;
+    background-color: white;
+    color: rgb(147, 59, 165);
+    border: 1px solid rgb(147, 59, 165);
+}
+.button__arrow {
+}
+
+.pagination__page {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    font-size: 14px;
 }

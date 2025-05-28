@@ -1,0 +1,24 @@
+section.pagination
+	// стрелка для перемещения на предыдущую страницу
+	if (previousPage != 1 && currentPage != 1)
+		a.pagination__button.button__arrow(href=("?page="+previousPage)) prev
+	else
+		a.pagination__button.button__arrow(href=("?page="+1)) prev
+
+	if (currentPage != 1 && previousPage != 1)
+		a.pagination__page(href="?page=1") 1
+	if (previousPage)
+		a.pagination__page(href=("?page="+previousPage)) #{previousPage}
+
+	a.pagination__page.active(href=("?page="+currentPage)) #{currentPage}
+
+	if (hasNextPage)
+		a.pagination__page(href=("?page=" + nextPage)) #{nextPage}
+	if (lastPage != currentPage && nextPage != lastPage)
+		a.pagination__page(href=("?page=" + lastPage)) #{lastPage}
+
+	// стрелка для перемещения на следующую страницу
+	if (nextPage != lastPage && lastPage != currentPage )
+		a.pagination__button.button__arrow(href=("?page=" + nextPage)) next
+	else
+		a.pagination__button.button__arrow(href=("?page=" + lastPage)) next
