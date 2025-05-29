@@ -40,7 +40,7 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
         res.status(201).redirect("/");
     } catch (err: any) {
         const error = new Error(err) as StatusError;
-        error.httpStatusCode = 500;
+        error.statusCode = 500;
         return next(error);
     }
 }

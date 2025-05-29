@@ -1,0 +1,21 @@
+extends ../includes/head-inc
+
+block styles
+	link(rel="stylesheet", href="/css/auth-form.css")
+
+block title
+	title #{docTitle}
+block content
+	h1.content__title-h1 login
+	form.auth(action="/post", method="POST")
+		.auth__container
+			label.auth__label(for="input__signin-mail") Email
+			input.auth__input#input__signin-mail(type="email", name="mail")
+
+			label.auth__label(for="input__signin-password") Password
+			input.auth__input#input__signin-password(type="password", name="password")
+
+			label.auth__label(for="input__signin-password") Confirm Password
+			input.auth__input#input__signin-confirm-password(type="password", name="confirmPassword")
+
+			button.auth__button-submit(type="submit") Sign in

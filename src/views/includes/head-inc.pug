@@ -24,8 +24,8 @@ html(lang="en")
                             a.main-header__link(href="/post/create-post" class=(path==="/create-post"?"active-page":"")) Create post
                     ul.main-header__auth-list
                         li.main-header__item
-                            a.main-header__link Login
+                            a.main-header__link(href="/login" class=(path==="/login"? "active-page":"")) Login
                         li.main-header__item
-                            a.main-header__link Sign in
+                            a.main-header__link(href="/sign-in" class=(path==="/sign-in"? "active-page":"")) Sign in
 
             block content

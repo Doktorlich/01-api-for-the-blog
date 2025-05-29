@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { RequestHandler } from "express";
 import { postControllers } from "../controllers";
-import { body, validationResult } from "express-validator";
 import validatorPost from "../middleware/validator-post";
 const router = Router();
 
