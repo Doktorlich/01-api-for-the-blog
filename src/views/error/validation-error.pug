@@ -1,6 +1,7 @@
-if countError > 0
-	div.error
-		p.error__message #{error.path}
-		p.error__message #{error.msg}
-else
-	p
+mixin validationError(field,blockName)
+	div(class=`position__${blockName}`)
+		if countError > 0
+			each error in validationErrors
+				if error.path === field
+					div.error
+						p.error__message #{error.msg}

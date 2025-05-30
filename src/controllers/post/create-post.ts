@@ -39,9 +39,10 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
         await newPost.save();
         res.status(201).redirect("/");
     } catch (err: any) {
-        const error = new Error(err) as StatusError;
-        error.statusCode = 500;
-        return next(error);
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        return next(err);
     }
 }
 export const createPostControllers = { getCreatePost, createPost };

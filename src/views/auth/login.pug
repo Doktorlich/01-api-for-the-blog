@@ -6,8 +6,8 @@ block styles
 block title
 	title #{docTitle}
 block content
-	h1.content__title-h1 login
-	form.auth(action="/post", method="POST")
+	h1.content__title-h1 Login
+	form.auth(action="/login", method="POST")
 		.auth__container
 			label.auth__label(for="input__login-mail") Email
 			input.auth__input#input__login-mail(type="email", name="mail")

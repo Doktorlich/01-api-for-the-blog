@@ -1,13 +1,19 @@
-.position__title{
-    position: relative;
-}
-.position__content{
+
+.position__content, .position__title ,.position__auth {
     position: relative;
 }
 .position__title .error {
     position: absolute;
-left: 600px;
+    left: 600px;
     bottom: 50%;
+    border: 1px solid red;
+    width: 500px;
+}
+
+.position__auth .error {
+    position: absolute;
+    left: 400px;
+    bottom: 10px;
     border: 1px solid red;
     width: 500px;
 }
@@ -20,6 +26,15 @@ left: 600px;
     width: 500px;
 }
 
-
 .error__message {
+}
+.auth__container {
+    position: relative;
+}
+.position__email .error {
+    position: absolute;
+    left: 600px;
+    top: -150px;
+    border: 1px solid red;
+    width: 500px;
 }

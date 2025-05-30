@@ -2,20 +2,29 @@ extends ../includes/head-inc
 
 block styles
 	link(rel="stylesheet", href="/css/auth-form.css")
-
+	link(rel="stylesheet", href="/css/validation-error.css")
 block title
 	title #{docTitle}
 block content
-	h1.content__title-h1 login
-	form.auth(action="/post", method="POST")
+	h1.content__title-h1 Sign in
+	form.auth(action="/sign-in", method="POST")
 		.auth__container
+			include ../error/validation-error
+
 			label.auth__label(for="input__signin-mail") Email
-			input.auth__input#input__signin-mail(type="email", name="mail")
+			input.auth__input#input__signin-mail(type="email", name="email", value=(oldInput && oldInput.email !== null ? oldInput.email : ""))
+			+validationError("email", "auth")
+
+			label.auth__label(for="input__signin-name") Name
+			input.auth__input#input__signin-name(type="text", name="name", value=(oldInput && oldInput.name !== null ? oldInput.name : ""))
+			+validationError("name", "auth")
 
 			label.auth__label(for="input__signin-password") Password
 			input.auth__input#input__signin-password(type="password", name="password")
+			+validationError("password", "auth")
 
 			label.auth__label(for="input__signin-password") Confirm Password
 			input.auth__input#input__signin-confirm-password(type="password", name="confirmPassword")
+			+validationError("confirmPassword", "auth")
 
 			button.auth__button-submit(type="submit") Sign in

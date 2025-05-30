@@ -17,4 +17,5 @@ export const postControllers = {
 export const authControllers = {
     getLogin: getLoginControllers.getLogin,
     getSignIn: getSignInControllers.getSignIn,
+    postSignIn: getSignInControllers.postSignIn,
 };

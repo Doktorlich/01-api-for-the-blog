@@ -7,24 +7,17 @@ block styles
 block title
 	title Test
 block content
+	include ../error/validation-error
 	main.content
 		hr
 		h1.content__title-h1 Update post
 		form.form(action=("/post/"+paramId+"/update"), method="POST")
 			label.label(for="input-title" ) Title post
 				input#input-title(type="text", name="title", value=(oldInput && oldInput.title !== null? oldInput.title : title))
-				div.position__title
-					if countError > 0
-						each error in validationErrors
-							if error.path === "title"
-								include ../error/validation-error
+				+validationError("title", "title")
 			label.label(for="input-content" ) Content post
 				textarea#input-content(name="content", cols="30", rows="10") #{oldInput && oldInput.content !== null? oldInput.content : content }
-				div.position__content
-					if countError > 0
-						each error in validationErrors
-							if error.path === "content"
-								include ../error/validation-error
+				+validationError("content", "content")
 			input(type="hidden", value=_id)
 			button.button-submit(type="submit") Update post
 
