@@ -28,14 +28,19 @@
   "homepage": "https://github.com/Doktorlich/01-api-for-the-blog#readme",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "connect-mongodb-session": "^5.0.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.1",
     "express-validator": "^7.2.1",
     "mongoose": "^8.15.0",
     "pug": "^3.0.3"
   },
   "devDependencies": {
+    "@types/connect-mongodb-session": "^2.4.8",
     "@types/express": "^5.0.2",
+    "@types/express-session": "^1.18.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2"
   }

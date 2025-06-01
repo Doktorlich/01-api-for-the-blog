@@ -1,6 +1,10 @@
-mixin validationError(field,blockName)
+mixin validationError(field,blockName,pathError)
 	div(class=`position__${blockName}`)
-		if countError > 0
+		if customErrorMessage
+			if pathError === field
+				div.error
+					p.error__message #{customErrorMessage}
+		if countError > 0 || customErrorMessage
 			each error in validationErrors
 				if error.path === field
 					div.error

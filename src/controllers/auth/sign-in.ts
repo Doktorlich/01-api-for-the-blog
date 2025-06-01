@@ -4,6 +4,7 @@ import UserSchema from "../../models/user";
 import { Error } from "mongoose";
 import { StatusError } from "../../types/error.types";
 import { validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
 
 async function getSignIn(req: Request, res: Response, next: NextFunction) {
     res.status(200).render("auth/sign-in", {
@@ -19,6 +20,7 @@ async function postSignIn(req: Request, res: Response, next: NextFunction) {
         const name = body.name || `User ${new Date().toISOString()}`;
         const password = body.password;
         const confirmPassword = body.confirmPassword;
+
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             console.log(errors.array());
@@ -35,7 +37,8 @@ async function postSignIn(req: Request, res: Response, next: NextFunction) {
                 },
             });
         }
-        const newUser = new UserSchema({ email: email, name: name, password: password });
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const newUser = new UserSchema({ email: email, name: name, password: hashedPassword });
         console.log(newUser);
         await newUser.save();
         res.status(201).redirect("/login");
@@ -46,7 +49,7 @@ async function postSignIn(req: Request, res: Response, next: NextFunction) {
         return next(error);
     }
 }
-export const getSignInControllers = {
+export const signInControllers = {
     getSignIn,
     postSignIn,
 };

@@ -28,6 +28,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             error.statusCode = 404;
             return next(error);
         }
+
         res.status(200).render("post/index", {
             path: "/post",
             posts: posts,
@@ -38,6 +39,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             nextPage: page + 1,
             previousPage: page - 1,
             lastPage: totalPosts,
+            isLoggedIn: req.session.isLoggedIn,
         });
     } catch (err: any) {
         if (!err.statusCode) {
@@ -56,6 +58,7 @@ async function getPost(req: Request, res: Response, next: NextFunction) {
         path: "/post/" + postId,
         paramId: postId,
         post: post,
+        isLoggedIn: req.session.isLoggedIn,
     });
 }
 

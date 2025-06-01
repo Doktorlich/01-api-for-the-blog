@@ -19,6 +19,7 @@ async function getUpdatePost(req: Request, res: Response, next: NextFunction) {
         paramId: postId,
         title: title,
         content: content,
+        isLoggedIn: req.session.isLoggedIn,
     });
 }
 
@@ -42,6 +43,7 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
                 title: title,
                 content: content,
             },
+            isLoggedIn: req.session.isLoggedIn,
         });
     }
 

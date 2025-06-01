@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import UserSchema from "../models/user";
-const validatorAuth = {
+const validatorSignIn = {
     email: [
         body("email")
             .isEmail()
@@ -16,7 +16,7 @@ const validatorAuth = {
             })
             .trim(),
     ],
-    name: [body("name").trim().isLength({ min: 5 })],
+    name: [body("name").optional()],
     password: [
         body(
             "password",
@@ -37,5 +37,26 @@ const validatorAuth = {
             .trim(),
     ],
 };
-
-export default validatorAuth;
+const validationLogin = {
+    email: [
+        body("email")
+            .isEmail()
+            .isLength({ min: 5 })
+            .withMessage("Please enter a valid email.")
+            .normalizeEmail()
+            .trim(),
+    ],
+    password: [
+        body(
+            "password",
+            "Please enter a password with only numbers and text and at least 5 characters.",
+        )
+            .isLength({ min: 5 })
+            .isAlphanumeric()
+            .trim(),
+    ],
+};
+export const validatorAuth = {
+    validatorSignIn,
+    validationLogin,
+};

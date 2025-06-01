@@ -5,7 +5,12 @@ function getStatusError404(req: Request, res: Response, next: NextFunction) {
     res.status(404).render("error/404", { docTitle: "Error 404", path: "/404" });
 }
 function getStatusError500(error: StatusError, req: Request, res: Response, next: NextFunction) {
-    res.status(error.statusCode || 500).render("error/500", { path: "/500" });
+    res.status(error.statusCode || 500).render("error/500", {
+        path: "/500",
+        docTitle: "Error 500",
+        //@ts-ignore
+        isAuthenticated: req.session ? req.session.isLoggedIn : false,
+    });
 }
 
 export const controllersStatusError = {

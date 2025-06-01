@@ -1,9 +1,12 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
+dotenv.config();
 import mongoose from "mongoose";
 import routeIndex from "./routes/index";
 import path from "path";
-dotenv.config();
+import sessionMiddleware from "./middleware/session.middleware";
+
+import UserSchema from "./models/user";
 
 const app = express();
 
@@ -14,6 +17,8 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(sessionMiddleware);
 
 app.use(routeIndex);
 
