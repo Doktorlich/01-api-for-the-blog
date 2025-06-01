@@ -21,6 +21,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
         const totalPosts = Math.ceil(totalPages / POST_PER_PAGE);
 
         const posts = await PostSchema.find()
+            .populate("creator", "email name")
             .skip((page - 1) * POST_PER_PAGE)
             .limit(POST_PER_PAGE);
         if (page > totalPages && totalPages > 0) {
@@ -28,18 +29,23 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             error.statusCode = 404;
             return next(error);
         }
-
+        // const postPopulate = await PostSchema.find().populate("creator", "email name");
+        console.log(posts);
         res.status(200).render("post/index", {
             path: "/post",
             posts: posts,
-            cdPost: totalPages,
+            gage: page,
+            cdPost: +totalPages,
             currentPage: page,
+            POST_PER_PAGE: +POST_PER_PAGE,
             hasNextPage: POST_PER_PAGE * page < totalPages,
             hasPreviousPage: page > 1,
             nextPage: page + 1,
             previousPage: page - 1,
             lastPage: totalPosts,
+
             isLoggedIn: req.session.isLoggedIn,
+            // creator: creator,
         });
     } catch (err: any) {
         if (!err.statusCode) {

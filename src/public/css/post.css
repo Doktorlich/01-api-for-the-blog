@@ -27,6 +27,12 @@
 
 }
 .post__name-creator {
+    font-size: 22px;
+    color: rgb(147, 59, 165);
+}
+.name-creator__author{
+    color: black;
+    font-size: 20px;
 }
 .post__button-item-list {
     display: flex;

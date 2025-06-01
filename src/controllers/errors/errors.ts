@@ -8,8 +8,8 @@ function getStatusError500(error: StatusError, req: Request, res: Response, next
     res.status(error.statusCode || 500).render("error/500", {
         path: "/500",
         docTitle: "Error 500",
-        //@ts-ignore
-        isAuthenticated: req.session ? req.session.isLoggedIn : false,
+        isLoggedIn: req.session.isLoggedIn,
+        // isAuthenticated: req.session ? req.session.isLoggedIn : false,
     });
 }
 

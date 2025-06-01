@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import PostSchema from "../../models/post";
+import UserSchema from "../../models/user";
 import { validationResult } from "express-validator";
 import { Error } from "mongoose";
 import { StatusError } from "../../types/error.types";
@@ -16,8 +17,9 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
     const body = req.body as RequestBody;
     const title = body.title;
     const content = body.content;
-    const errors = validationResult(req);
+    const creator = req.session.user;
 
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors.array());
         return res.status(422).render("post/create-post", {
@@ -36,10 +38,22 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
         const newPost = new PostSchema({
             title: title,
             content: content,
+            creator: creator._id,
+            nameCreator: creator.name,
         });
         console.log(newPost);
         await newPost.save();
-        res.status(201).redirect("/");
+
+        const user = await UserSchema.findById(creator._id);
+        if (!user) {
+            res.status(404);
+            return next();
+        }
+        const userPosts = user.posts;
+        userPosts.push(newPost._id);
+        console.log("user populate", user);
+        await user.save();
+        return res.status(201).redirect("/");
     } catch (err: any) {
         if (!err.statusCode) {
             err.statusCode = 500;
