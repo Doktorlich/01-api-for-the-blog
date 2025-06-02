@@ -12,10 +12,11 @@ if posts.length > 0
 					li.post__button-item
 						a.post__button(href=("/post/"+post._id)) View
 					if isLoggedIn
-						li.post__button-item
-							a.post__button(href=("/post/"+post._id +"/update")) Edit
-						li.post__button-item
-							form(action="/post/"+post._id+"/delete", method="POST")
-								button.post__button(type="submit") Delete
+						if isCreator == post.creator._id
+							li.post__button-item
+								a.post__button(href=("/post/"+post._id +"/update")) Edit
+							li.post__button-item
+								form(action="/post/"+post._id+"/delete", method="POST")
+									button.post__button(type="submit") Delete
 else
 	h1.content__title-h1 Posts not found

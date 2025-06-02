@@ -8,4 +8,4 @@ block styles
 block title
 	title #{docTitle}
 block content
-	h1.content__title-h1 Error 404 No such page found
+	h1.content__title-h1 Error #{statusCode || "404"} #{errorMessage || "No such page found"}

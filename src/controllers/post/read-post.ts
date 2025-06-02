@@ -10,6 +10,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
         const params = req.params as RequestParams;
         const POST_PER_PAGE: number = 2;
         const page: number = +query.page || 1;
+        const isCreator = req.session.user?._id.toString();
 
         if (isNaN(page) || page < 1) {
             const error = new Error("Invalid page number") as StatusError;
@@ -21,7 +22,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
         const totalPosts = Math.ceil(totalPages / POST_PER_PAGE);
 
         const posts = await PostSchema.find()
-            .populate("creator", "email name")
+            .populate("creator", "_id email name")
             .skip((page - 1) * POST_PER_PAGE)
             .limit(POST_PER_PAGE);
         if (page > totalPages && totalPages > 0) {
@@ -29,8 +30,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             error.statusCode = 404;
             return next(error);
         }
-        // const postPopulate = await PostSchema.find().populate("creator", "email name");
-        console.log(posts);
+
         res.status(200).render("post/index", {
             path: "/post",
             posts: posts,
@@ -43,15 +43,14 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             nextPage: page + 1,
             previousPage: page - 1,
             lastPage: totalPosts,
-
+            isCreator: isCreator,
             isLoggedIn: req.session.isLoggedIn,
-            // creator: creator,
         });
     } catch (err: any) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        return next(err);
+        err.statusCode = err.statusCode || 500;
+
+        console.log(err, err.statusCode);
+        next(err);
     }
 }
 
