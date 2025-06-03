@@ -7,11 +7,16 @@ const store = new MongoDBStore({
     collection: "session",
 });
 const sessionMiddleware = session({
-    secret: "secret key",
+    secret: `${process.env.SECRET_JWT}`,
     resave: false,
     saveUninitialized: false,
     store: store,
-    cookie: { maxAge: 1000 * 60 * 60 * 24, httpOnly: true },
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+    },
 });
 
 export default sessionMiddleware;

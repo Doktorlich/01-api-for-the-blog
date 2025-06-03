@@ -14,6 +14,8 @@ function getStatusError500(error: StatusError, req: Request, res: Response, next
         path: "/500",
         docTitle: "Error 500",
         isLoggedIn: req.session.isLoggedIn,
+        statusCode: "",
+        errorMessage: "",
         // isAuthenticated: req.session ? req.session.isLoggedIn : false,
     });
 }

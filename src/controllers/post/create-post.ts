@@ -9,7 +9,8 @@ import { RequestBody } from "../../types/post.types";
 async function getCreatePost(req: Request, res: Response, next: NextFunction) {
     res.status(200).render("post/create-post", {
         path: "/create-post",
-        isLoggedIn: req.session.isLoggedIn,
+        isAccessToken: req.cookies.accessToken,
+        isLoggedIn: req.cookies.accessToken,
     });
 }
 
@@ -31,7 +32,7 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
                 title: title,
                 content: content,
             },
-            isLoggedIn: req.session.isLoggedIn,
+            isLoggedIn: req.cookies.accessToken,
         });
     }
     try {

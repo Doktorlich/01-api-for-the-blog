@@ -44,7 +44,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             previousPage: page - 1,
             lastPage: totalPosts,
             isCreator: isCreator,
-            isLoggedIn: req.session.isLoggedIn,
+            isLoggedIn: req.cookies.accessToken,
         });
     } catch (err: any) {
         err.statusCode = err.statusCode || 500;
@@ -63,7 +63,7 @@ async function getPost(req: Request, res: Response, next: NextFunction) {
         path: "/post/" + postId,
         paramId: postId,
         post: post,
-        isLoggedIn: req.session.isLoggedIn,
+        isLoggedIn: req.cookies.accessToken,
     });
 }
 

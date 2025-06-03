@@ -12,7 +12,7 @@ async function deletePost(req: Request, res: Response, next: NextFunction) {
         return res.status(404).render("error/404", {
             statusCode: "404",
             errorMessage: "Post not found",
-            isLoggedIn: req.session.isLoggedIn,
+            isLoggedIn: req.cookies.accessToken,
         });
     }
     if (isCreator.toString() !== postCreator.creator._id.toString()) {
@@ -20,7 +20,7 @@ async function deletePost(req: Request, res: Response, next: NextFunction) {
             docTitle: "403",
             statusCode: "403",
             errorMessage: "You do not have permission to edit this post",
-            isLoggedIn: req.session.isLoggedIn,
+            isLoggedIn: req.cookies.accessToken,
         });
     }
 

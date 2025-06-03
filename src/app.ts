@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import routeIndex from "./routes/index";
 import path from "path";
 import sessionMiddleware from "./middleware/session.middleware";
+import cookieParser from "cookie-parser";
 
 import UserSchema from "./models/user";
 
@@ -12,6 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
