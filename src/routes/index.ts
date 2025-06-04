@@ -1,11 +1,14 @@
 import { NextFunction, Request, Response, Router } from "express";
 import postRouter from "../routes/post";
+import userRouter from "../routes/user";
 import authRouter from "../routes/auth";
 import { controllersStatusError } from "../controllers/errors/errors";
 import { StatusError } from "../types/error.types";
+import isAuth from "../middleware/is-auth";
 const router = Router();
 
 router.use("/post", postRouter);
+router.use("/profile", isAuth, userRouter);
 router.use("/", authRouter);
 router.get("/", (req, res, next) => {
     res.status(300).redirect("/post");

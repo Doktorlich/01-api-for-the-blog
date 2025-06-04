@@ -72,7 +72,7 @@ async function postLogin(req: Request, res: Response, next: NextFunction) {
             { email: user.email, userId: user._id.toString() },
             `${process.env.ACCESS_TOKEN_SECRET}`,
             {
-                expiresIn: "10s",
+                expiresIn: "30m",
             },
         );
         req.session.isLoggedIn = true;
@@ -97,7 +97,7 @@ async function postLogin(req: Request, res: Response, next: NextFunction) {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "lax",
-                maxAge: 10 * 1000,
+                maxAge: 30 * 60 * 1000,
             });
             res.status(200).redirect("/");
         });
@@ -126,14 +126,21 @@ async function postLogout(req: Request, res: Response, next: NextFunction) {
             error.statusCode = 500;
             throw error;
         }
+        res.clearCookie("connect.sid", {
+            // Это стандартное имя куки для express-session
+            path: "/",
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+        });
         res.clearCookie("refreshToken", {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
         });
         res.clearCookie("accessToken", {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
         });
         console.log("The user is logged out");

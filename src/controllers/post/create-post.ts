@@ -10,6 +10,7 @@ async function getCreatePost(req: Request, res: Response, next: NextFunction) {
     res.status(200).render("post/create-post", {
         path: "/create-post",
         isAccessToken: req.cookies.accessToken,
+        userSession: req.session.user,
         isLoggedIn: req.cookies.accessToken,
     });
 }
@@ -32,6 +33,7 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
                 title: title,
                 content: content,
             },
+
             isLoggedIn: req.cookies.accessToken,
         });
     }

@@ -20,6 +20,7 @@ async function getUpdatePost(req: Request, res: Response, next: NextFunction) {
         paramId: postId,
         title: title,
         content: content,
+        userSession: req.session.user,
         isLoggedIn: req.session.isLoggedIn,
     });
 }

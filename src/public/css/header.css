@@ -8,7 +8,8 @@
     background-color: rgb(147, 59, 165);
 }
 
-.main-header__item-list,.main-header__auth-list {
+.main-header__item-list,
+.main-header__auth-list {
     display: flex;
 }
 .main-header__item {
@@ -22,7 +23,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
+    /*width: 100px;*/
+    min-width: 100px;
     height: 50px;
     text-decoration: none;
     color: white;
@@ -38,14 +40,34 @@
     background-color: antiquewhite;
     color: black;
 }
-.active-page{
+.active-page {
     background-color: antiquewhite;
     color: black;
 }
-button.main-header__link{
+button.main-header__link {
     background-color: rgb(147, 59, 165);
     outline: none;
     border: none;
     cursor: pointer;
-
+}
+.main-header__user-profile {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    column-gap: 5px;
+}
+.main-header__user-image {
+    box-sizing: border-box;
+    border: 3px solid white;
+    height: 40px;
+}
+.main-header__user-data {
+}
+.main-header__user-name {
+}
+.main-header__user-email {
+}
+.main-header__user-data,
+.main-header__user-email {
+    color: white;
 }

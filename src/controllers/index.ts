@@ -4,6 +4,7 @@ import { readPostControllers } from "./post/read-post";
 import { deletePostControllers } from "./post/delete-post";
 import { loginControllers } from "./auth/login";
 import { signInControllers } from "./auth/sign-in";
+import { profileControllers } from "./user/profile";
 
 export const postControllers = {
     getPosts: readPostControllers.getPosts,
@@ -20,4 +21,8 @@ export const authControllers = {
     postLogout: loginControllers.postLogout,
     getSignIn: signInControllers.getSignIn,
     postSignIn: signInControllers.postSignIn,
+};
+
+export const userControllers = {
+    getProfile: profileControllers.getProfile,
 };

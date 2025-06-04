@@ -11,7 +11,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
         const POST_PER_PAGE: number = 2;
         const page: number = +query.page || 1;
         const isCreator = req.session.user?._id.toString();
-
+        console.log(req.session.user);
         if (isNaN(page) || page < 1) {
             const error = new Error("Invalid page number") as StatusError;
             error.statusCode = 400;
@@ -34,7 +34,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
         res.status(200).render("post/index", {
             path: "/post",
             posts: posts,
-            gage: page,
+            page: page,
             cdPost: +totalPages,
             currentPage: page,
             POST_PER_PAGE: +POST_PER_PAGE,
@@ -44,6 +44,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             previousPage: page - 1,
             lastPage: totalPosts,
             isCreator: isCreator,
+            userSession: req.session.user,
             isLoggedIn: req.cookies.accessToken,
         });
     } catch (err: any) {
@@ -63,6 +64,7 @@ async function getPost(req: Request, res: Response, next: NextFunction) {
         path: "/post/" + postId,
         paramId: postId,
         post: post,
+        userSession: req.session.user,
         isLoggedIn: req.cookies.accessToken,
     });
 }

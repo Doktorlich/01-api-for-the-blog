@@ -30,6 +30,13 @@ html(lang="en")
                                 a.main-header__link(href="/sign-in" class=(path==="/sign-in"? "active-page":"")) Sign in
                         if isLoggedIn
                             li.main-header__item
+                                a.main-header__link(href="/profile" class=(path==="/profile"? "active-page":""))
+                                    div.main-header__user-profile
+                                        img.main-header__user-image(src="/images/user-profile-img.svg")
+                                        div.main-header__user-data
+                                            p.main-header__user-name #{userSession && userSession.name ? userSession.name : ""}
+                                            p.main-header__user-email #{userSession && userSession.email ? userSession.email : ""}
+                            li.main-header__item
                                 form(action="/log-out" method="POST")
                                     button.main-header__link(type="submit") Log out
 

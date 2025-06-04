@@ -7,16 +7,20 @@ function getStatusError404(req: Request, res: Response, next: NextFunction) {
         path: "/404",
         statusCode: "",
         errorMessage: "",
+        isAccessToken: req.cookies.accessToken,
+        userSession: req.session.user,
+        isLoggedIn: req.cookies.accessToken,
     });
 }
 function getStatusError500(error: StatusError, req: Request, res: Response, next: NextFunction) {
     res.status(error.statusCode || 500).render("error/500", {
         path: "/500",
         docTitle: "Error 500",
-        isLoggedIn: req.session.isLoggedIn,
         statusCode: "",
         errorMessage: "",
-        // isAuthenticated: req.session ? req.session.isLoggedIn : false,
+        isAccessToken: req.cookies.accessToken,
+        userSession: req.session.user,
+        isLoggedIn: req.cookies.accessToken,
     });
 }
 

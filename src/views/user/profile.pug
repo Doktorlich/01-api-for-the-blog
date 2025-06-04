@@ -1,0 +1,51 @@
+extends ../includes/head-inc
+
+block styles
+	link(rel="stylesheet", href="/css/user-profile.css")
+
+
+block title
+	title Test
+block content
+	main.content
+		hr
+		h1.content__title-h1 User profile
+		article.profile
+			form.profile__form-user.profile__form-user-name(action="/profile/updated-name", method="POST")
+
+				label.profile__label(for="profile__input-name" ) User name
+				input.profile__input#profile__input-name(type="text" disabled value=(userSession.name) placeholder="Enter your nickname")
+
+				.profile__button-list
+					button.profile__button-edit(type="button") Edit
+					button.profile__button-cancel(type="button" class="hidden") Cancel
+					button.profile__button-submit(type="button" class="hidden") Save
+
+			form.profile__form-user.profile__form-user-email(action="/profile/updated-email", method="POST")
+
+				label.profile__label(for="profile__input-email" ) User email
+				input.profile__input#profile__input-email(type="email" disabled value=(userSession.email))
+
+				.profile__button-list
+					button.profile__button-edit(type="button" ) Edit
+					button.profile__button-cancel(type="button" class="hidden") Cancel
+					button.profile__button-submit(type="button" class="hidden") Save
+
+			form.profile__form-user.profile__form-user-password(action="/profile/updated-password", method="POST")
+				.profile__input-list
+					.profile__field-block
+						label.profile__label(for="profile__input-password" ) User password
+						input.profile__input#profile__input-password(type="password" disabled value="password")
+					.profile__field-block(class="hidden")
+						label.profile__label(for="profile__input-new-password" ) New password
+						input.profile__input#profile__input-new-password(type="password"  placeholder="Enter new password")
+					.profile__field-block(class="hidden")
+						label.profile__label(for="profile__input-confirm-password" ) Confirm password
+						input.profile__input#profile__input-confirm-password(type="password"  placeholder="Confirm password")
+
+				.profile__button-list
+					button.profile__button-edit(type="button" ) Edit
+					button.profile__button-cancel(type="button" class="hidden") Cancel
+					button.profile__button-submit(type="button" class="hidden") Save
+
+				script(defer src="/js/user-profile.js")

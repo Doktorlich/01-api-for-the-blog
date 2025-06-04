@@ -30,12 +30,12 @@ async function tryRefreshToken(req: Request, res: Response, next: NextFunction) 
         const newAccessToken = jwt.sign(
             { userId: decoded.userId },
             process.env.ACCESS_TOKEN_SECRET!,
-            { expiresIn: "10s" },
+            { expiresIn: "30m" },
         );
         res.cookie("accessToken", newAccessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 10 * 1000, // 30 минут
+            maxAge: 30 * 60 * 1000, // 30 минут
         });
         req.userId = decoded.userId;
         req.newAccessToken = newAccessToken;
