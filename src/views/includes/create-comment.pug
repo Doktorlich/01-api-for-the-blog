@@ -1,0 +1,16 @@
+form.comment-form(action=("/post/"+postId +"/create-comment"), method="POST", class="hidden")
+	hr
+	article.comment-form__content
+		//section.comment-form__user-info
+		//	img.comment-form__user-image(src="/images/user-profile-img.svg")
+		//	p.comment-form__user-name Nickname
+		section.comment-form__field-comment
+			.comment-form__box-input
+				textarea.comment-form__textarea()
+				.comment-form__count
+					span.comment-form__count-span 0
+					span.comment-form__count-span  /
+					span.comment-form__count-span  256
+	.comment-form__button-list
+		button.comment-form__button(type="button") Cancel
+		button.comment-form__button(type="button") Send

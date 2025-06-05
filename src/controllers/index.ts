@@ -5,6 +5,7 @@ import { deletePostControllers } from "./post/delete-post";
 import { loginControllers } from "./auth/login";
 import { signInControllers } from "./auth/sign-in";
 import { profileControllers } from "./user/profile";
+import { commentController } from "./comment/comment";
 
 export const postControllers = {
     getPosts: readPostControllers.getPosts,
@@ -28,4 +29,7 @@ export const userControllers = {
     updateName: profileControllers.updateName,
     updateEmail: profileControllers.updateEmail,
     updatePassword: profileControllers.updatePassword,
+};
+export const commentControllers = {
+    createComment: commentController.createComment,
 };

@@ -2,6 +2,8 @@ extends ../includes/head-inc
 
 block styles
 	link(rel="stylesheet", href="/css/full-post.css")
+	link(rel="stylesheet", href="/css/create-comment.css")
+	link(rel="stylesheet", href="/css/comments.css")
 block title
 	title Test
 block content
@@ -9,6 +11,10 @@ block content
 		hr
 		h2.post__title-h2 #{post.title}
 		p.post__content #{post.content}
+		button.button-comment(type="button") Comment
 
-
+		include ../includes/create-comment
+		hr
+		include ../includes/comments
+	script(defer src="/js/create-comment.js")
 
