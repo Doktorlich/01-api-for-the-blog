@@ -25,4 +25,7 @@ export const authControllers = {
 
 export const userControllers = {
     getProfile: profileControllers.getProfile,
+    updateName: profileControllers.updateName,
+    updateEmail: profileControllers.updateEmail,
+    updatePassword: profileControllers.updatePassword,
 };

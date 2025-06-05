@@ -2,50 +2,55 @@ extends ../includes/head-inc
 
 block styles
 	link(rel="stylesheet", href="/css/user-profile.css")
+	link(rel="stylesheet", href="/css/validation-error.css")
 
 
 block title
 	title Test
 block content
+	include ../error/validation-error
+
 	main.content
 		hr
 		h1.content__title-h1 User profile
 		article.profile
-			form.profile__form-user.profile__form-user-name(action="/profile/updated-name", method="POST")
-
+			form.profile__form-user.profile__form-user-name(action="/profile/update-name", method="POST")
+				+validationError("name", "profile-name")
 				label.profile__label(for="profile__input-name" ) User name
-				input.profile__input#profile__input-name(type="text" disabled value=(userSession.name) placeholder="Enter your nickname")
+				input.profile__input#profile__input-name(type="text" name="name" value=(userSession.name ) placeholder="Enter your nickname" disabled)
 
 				.profile__button-list
 					button.profile__button-edit(type="button") Edit
 					button.profile__button-cancel(type="button" class="hidden") Cancel
-					button.profile__button-submit(type="button" class="hidden") Save
+					button.profile__button-submit(type="submit" class="hidden") Save
 
-			form.profile__form-user.profile__form-user-email(action="/profile/updated-email", method="POST")
-
+			form.profile__form-user.profile__form-user-email(action="/profile/update-email", method="POST")
+				+validationError("email", "profile-email")
 				label.profile__label(for="profile__input-email" ) User email
-				input.profile__input#profile__input-email(type="email" disabled value=(userSession.email))
+				input.profile__input#profile__input-email(type="email" name="email" disabled value=(userSession.email))
 
 				.profile__button-list
 					button.profile__button-edit(type="button" ) Edit
 					button.profile__button-cancel(type="button" class="hidden") Cancel
-					button.profile__button-submit(type="button" class="hidden") Save
+					button.profile__button-submit(type="submit" class="hidden") Save
 
-			form.profile__form-user.profile__form-user-password(action="/profile/updated-password", method="POST")
+			form.profile__form-user.profile__form-user-password(action="/profile/update-password", method="POST")
+				+validationError("password", "profile-password")
+				+validationError("confirmPassword", "profile-confirm-password")
 				.profile__input-list
 					.profile__field-block
 						label.profile__label(for="profile__input-password" ) User password
-						input.profile__input#profile__input-password(type="password" disabled value="password")
+						input.profile__input#profile__input-password(type="password"  disabled value="password")
 					.profile__field-block(class="hidden")
 						label.profile__label(for="profile__input-new-password" ) New password
-						input.profile__input#profile__input-new-password(type="password"  placeholder="Enter new password")
+						input.profile__input#profile__input-new-password(type="password" name="password"  placeholder="Enter new password")
 					.profile__field-block(class="hidden")
 						label.profile__label(for="profile__input-confirm-password" ) Confirm password
-						input.profile__input#profile__input-confirm-password(type="password"  placeholder="Confirm password")
+						input.profile__input#profile__input-confirm-password(type="password" name="confirmPassword"  placeholder="Confirm password")
 
 				.profile__button-list
 					button.profile__button-edit(type="button" ) Edit
 					button.profile__button-cancel(type="button" class="hidden") Cancel
-					button.profile__button-submit(type="button" class="hidden") Save
+					button.profile__button-submit(type="submit" class="hidden") Save
 
 				script(defer src="/js/user-profile.js")

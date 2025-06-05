@@ -11,7 +11,7 @@ async function getCreatePost(req: Request, res: Response, next: NextFunction) {
         path: "/create-post",
         isAccessToken: req.cookies.accessToken,
         userSession: req.session.user,
-        isLoggedIn: req.cookies.accessToken,
+        isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
     });
 }
 
@@ -33,8 +33,9 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
                 title: title,
                 content: content,
             },
-
-            isLoggedIn: req.cookies.accessToken,
+            isAccessToken: req.cookies.accessToken,
+            userSession: req.session.user,
+            isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
         });
     }
     try {

@@ -7,8 +7,8 @@ import { StatusError } from "../types/error.types";
 import isAuth from "../middleware/is-auth";
 const router = Router();
 
+router.use("/profile", userRouter);
 router.use("/post", postRouter);
-router.use("/profile", isAuth, userRouter);
 router.use("/", authRouter);
 router.get("/", (req, res, next) => {
     res.status(300).redirect("/post");

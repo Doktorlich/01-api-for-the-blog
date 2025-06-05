@@ -45,7 +45,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
             lastPage: totalPosts,
             isCreator: isCreator,
             userSession: req.session.user,
-            isLoggedIn: req.cookies.accessToken,
+            isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
         });
     } catch (err: any) {
         err.statusCode = err.statusCode || 500;
@@ -65,7 +65,7 @@ async function getPost(req: Request, res: Response, next: NextFunction) {
         paramId: postId,
         post: post,
         userSession: req.session.user,
-        isLoggedIn: req.cookies.accessToken,
+        isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
     });
 }
 

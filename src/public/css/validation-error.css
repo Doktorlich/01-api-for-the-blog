@@ -1,11 +1,45 @@
-
-.position__content, .position__title ,.position__auth {
+.position__content,
+.position__title,
+.position__auth,
+.profile__form-user-name,
+.profile__form-user-email,
+.profile__form-user-password
+{
     position: relative;
 }
 .position__title .error {
     position: absolute;
     left: 600px;
     bottom: 50%;
+    border: 1px solid red;
+    width: 500px;
+}
+
+.position__profile-name .error {
+    position: absolute;
+    left: 800px;
+    bottom: 50%;
+    border: 1px solid red;
+    width: 500px;
+}
+.position__profile-email .error {
+    position: absolute;
+    left: 800px;
+    bottom: 50%;
+    border: 1px solid red;
+    width: 500px;
+}
+.position__profile-password .error {
+    position: absolute;
+    left: 800px;
+    bottom: 50%;
+    border: 1px solid red;
+    width: 500px;
+}
+.position__profile-confirm-password .error {
+    position: absolute;
+    left: 800px;
+bottom: -10px;
     border: 1px solid red;
     width: 500px;
 }

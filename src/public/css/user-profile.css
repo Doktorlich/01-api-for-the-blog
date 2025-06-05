@@ -34,6 +34,10 @@
     padding: 3px;
     height: 30px;
 }
+.profile__input[disabled]{
+    cursor: not-allowed;
+    user-select: none ;
+}
 .profile__input:focus,
 .profile__input:active {
     box-sizing: border-box;

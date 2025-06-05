@@ -21,7 +21,7 @@ async function getUpdatePost(req: Request, res: Response, next: NextFunction) {
         title: title,
         content: content,
         userSession: req.session.user,
-        isLoggedIn: req.session.isLoggedIn,
+        isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
     });
 }
 
@@ -47,7 +47,7 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
                     title: title,
                     content: content,
                 },
-                isLoggedIn: req.cookies.accessToken,
+                isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
             });
         }
         const postCreator = await PostSchema.findById(postId).populate("creator", "_id");
@@ -55,7 +55,7 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
             return res.status(404).render("error/404", {
                 statusCode: "404",
                 errorMessage: "Post not found",
-                isLoggedIn: req.cookies.accessToken,
+                isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
             });
         }
         if (isCreator.toString() !== postCreator.creator._id.toString()) {
@@ -69,7 +69,7 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
                 docTitle: "403",
                 statusCode: "403",
                 errorMessage: "You do not have permission to edit this post",
-                isLoggedIn: req.cookies.accessToken,
+                isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
             });
         }
         await PostSchema.updateOne(

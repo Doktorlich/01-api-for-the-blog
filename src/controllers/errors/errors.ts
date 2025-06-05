@@ -9,7 +9,7 @@ function getStatusError404(req: Request, res: Response, next: NextFunction) {
         errorMessage: "",
         isAccessToken: req.cookies.accessToken,
         userSession: req.session.user,
-        isLoggedIn: req.cookies.accessToken,
+        isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
     });
 }
 function getStatusError500(error: StatusError, req: Request, res: Response, next: NextFunction) {
@@ -20,7 +20,7 @@ function getStatusError500(error: StatusError, req: Request, res: Response, next
         errorMessage: "",
         isAccessToken: req.cookies.accessToken,
         userSession: req.session.user,
-        isLoggedIn: req.cookies.accessToken,
+        isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
     });
 }
 
