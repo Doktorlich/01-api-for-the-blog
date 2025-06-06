@@ -13,8 +13,10 @@ block content
 		p.post__content #{post.content}
 		button.button-comment(type="button") Comment
 
+
 		include ../includes/create-comment
 		hr
 		include ../includes/comments
-	script(defer src="/js/create-comment.js")
+	script( src="/js/create-comment.js")
+	script( src="/js/comments.js")
 

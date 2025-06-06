@@ -1,8 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import PostSchema from "../../models/post";
+import CommentSchema from "../../models/comment";
 import { RequestParams, RequestQuery } from "../../types/post.types";
 import { Error } from "mongoose";
 import { StatusError } from "../../types/error.types";
+import { format } from "date-fns";
+import { validationResult } from "express-validator";
+interface IComment {
+    _id: string;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 async function getPosts(req: Request, res: Response, next: NextFunction) {
     try {
@@ -11,6 +20,7 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
         const POST_PER_PAGE: number = 2;
         const page: number = +query.page || 1;
         const isCreator = req.session.user?._id.toString();
+
         console.log(req.session.user);
         if (isNaN(page) || page < 1) {
             const error = new Error("Invalid page number") as StatusError;
@@ -56,17 +66,54 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
 }
 
 async function getPost(req: Request, res: Response, next: NextFunction) {
-    const params = req.params as RequestParams;
-    const postId = params.postId;
-    const post = await PostSchema.findById(postId);
+    try {
+        const params = req.params as RequestParams;
+        const postId = params.postId;
+        const isCreator = req.session.user?._id.toString();
 
-    res.status(200).render("post/full-post", {
-        path: "/post/" + postId,
-        paramId: postId,
-        post: post,
-        userSession: req.session.user,
-        isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
-    });
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log(errors.array());
+            return res.status(422).render("post/" + postId, {
+                path: "post/" + postId,
+                errorMessage: errors.array()[0].msg,
+                validationErrors: errors.array(),
+                countError: errors.array().length,
+
+                isAccessToken: req.cookies.accessToken,
+                userSession: req.session.user,
+                isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
+            });
+        }
+
+        const post = await PostSchema.findById(postId)
+            .populate("creator", "_id email name")
+            .populate({
+                path: "comments",
+                select: "_id content createdAt updatedAt",
+                options: { sort: { createdAt: -1 } },
+                populate: {
+                    path: "creator",
+                    select: "_id email name ",
+                },
+            });
+
+        res.status(200).render("post/full-post", {
+            path: "/post/" + postId,
+            paramId: postId,
+            post: post,
+            countComments: post?.comments.length,
+            comments: post?.comments,
+            userSession: req.session.user,
+            isCreator: isCreator,
+            isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
+        });
+    } catch (err: any) {
+        err.statusCode = err.statusCode || 500;
+
+        console.log(err, err.statusCode);
+        next(err);
+    }
 }
 
 export const readPostControllers = {

@@ -54,7 +54,9 @@ button.main-header__link {
     display: flex;
     height: 50px;
     align-items: center;
+    justify-content: center;
     column-gap: 5px;
+    width: 180px;
 }
 .main-header__user-image {
     box-sizing: border-box;

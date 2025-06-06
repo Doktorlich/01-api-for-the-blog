@@ -35,7 +35,7 @@ html(lang="en")
                                         img.main-header__user-image(src="/images/user-profile-img.svg")
                                         div.main-header__user-data
                                             p.main-header__user-name #{userSession && userSession.name ? userSession.name : ""}
-                                            p.main-header__user-email #{userSession && userSession.email ? userSession.email : ""}
+                                            //p.main-header__user-email #{userSession && userSession.email ? userSession.email : ""}
                             li.main-header__item
                                 form(action="/log-out" method="POST")
                                     button.main-header__link(type="submit") Log out

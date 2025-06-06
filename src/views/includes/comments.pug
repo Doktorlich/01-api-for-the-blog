@@ -1,0 +1,41 @@
+if countComments > 0
+	form.form-submith(action="" method="POST")
+		ul.comments__list-item
+			each comment in comments
+				- const createdAt = new Date(comment.createdAt)
+				- const updatedAt = new Date(comment.updatedAt)
+				li.comments__item
+					section.comments__user-info
+						img.comments__user-image(src="/images/user-profile-img.svg")
+						p.comments__user-name #{comment.creator.name}
+					section.comments__comment
+						.comments__box-input
+							p.comments__text #{comment.content}
+
+							if updatedAt > createdAt
+								.comments__date
+									span.comments__text-span Comment updated:
+									time.comments__updated-at(datetime=updatedAt.toISOString())= updatedAt.toLocaleString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit',hour12: false  }).replace(/\//g, '.')
+							else
+								.comments__date
+									span.comments__text-span Comment created:
+									time.comments__created-at(datetime=createdAt.toISOString())= createdAt.toLocaleString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit',hour12: false  }).replace(/\//g, '.')
+						if isLoggedIn
+							if isCreator == comment.creator._id
+								section.comments__list-button
+									button.comment-form__button.button-toggle(type="button") Change
+									button.comment-form__button.button-delete(type="button") Delete
+
+					section.comment-form__field-comment(class="hidden")
+						.comment-form__box-input
+							textarea.comment-form__textarea(name="content") #{comment.content}
+							.comment-form__count
+								span.comment-form__count-span 0
+								span.comment-form__count-span  /
+								span.comment-form__count-span  256
+						if isLoggedIn
+							if isCreator == comment.creator._id
+								section.comments__list-button
+									button.comment-form__button.button-toggle(type="button") Cancel
+									button.comment-form__button.button-apply(type="button") Apply
+	//script( src="/js/comments.js")

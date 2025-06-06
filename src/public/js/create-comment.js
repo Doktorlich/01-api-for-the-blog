@@ -6,7 +6,7 @@ const spanCount = document.querySelector(".comment-form__count-span");
 buttonComment.addEventListener("click", () => {
     console.log("asadsasdasdads");
     scrollBy();
-    commentForm.classList.remove("hidden");
+    commentForm.classList.toggle("hidden");
     commentForm.scrollIntoView({ inline: "end", behavior: "smooth" });
 });
 

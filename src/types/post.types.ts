@@ -8,6 +8,7 @@ export type RequestBody = {
     name: string;
     password: string;
     confirmPassword: string;
+    postId: string;
 };
 export type RequestParams = { postId: string };
 export type RequestQuery = { page: string };

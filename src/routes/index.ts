@@ -10,7 +10,7 @@ const router = Router();
 
 router.use("/profile", userRouter);
 router.use("/post", postRouter);
-router.use("/post", commentRouter);
+router.use("/post/:postId", commentRouter);
 router.use("/", authRouter);
 router.get("/", (req, res, next) => {
     res.status(300).redirect("/post");
