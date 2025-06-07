@@ -1,6 +1,7 @@
 let textareaItem;
 let countSymbol;
 const list = document.querySelector(".comments__list-item");
+const buttonApply = document.querySelector(".button-apply");
 
 function toggleForm(event) {
     const clickedButtonToggle = event.target.closest(".button-toggle");
@@ -37,6 +38,23 @@ function toggleForm(event) {
 }
 
 list.addEventListener("click", toggleForm);
+
+list.addEventListener("mouseover", () => {
+    const count = textareaItem.value.length;
+    if (!count) {
+        buttonApply.classList.add("hidden");
+    } else {
+        buttonApply.classList.remove("hidden");
+    }
+});
+list.addEventListener("input", () => {
+    const count = textareaItem.value.length;
+    if (!count) {
+        buttonApply.classList.add("hidden");
+    } else {
+        buttonApply.classList.remove("hidden");
+    }
+});
 
 list.addEventListener("input", () => {
     const count = textareaItem.value.length;

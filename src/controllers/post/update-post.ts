@@ -20,6 +20,7 @@ async function getUpdatePost(req: Request, res: Response, next: NextFunction) {
         paramId: postId,
         title: title,
         content: content,
+        isAccessToken: req.cookies.accessToken,
         userSession: req.session.user,
         isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
     });
@@ -47,6 +48,8 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
                     title: title,
                     content: content,
                 },
+                isAccessToken: req.cookies.accessToken,
+                userSession: req.session.user,
                 isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
             });
         }
@@ -55,6 +58,8 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
             return res.status(404).render("error/404", {
                 statusCode: "404",
                 errorMessage: "Post not found",
+                isAccessToken: req.cookies.accessToken,
+                userSession: req.session.user,
                 isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
             });
         }
@@ -69,6 +74,8 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
                 docTitle: "403",
                 statusCode: "403",
                 errorMessage: "You do not have permission to edit this post",
+                isAccessToken: req.cookies.accessToken,
+                userSession: req.session.user,
                 isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
             });
         }

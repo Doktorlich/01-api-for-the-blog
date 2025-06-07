@@ -4,9 +4,8 @@ const validatorComment = {
     content: [
         body("content")
             .trim()
-            .notEmpty()
-            .withMessage("A comment cannot be empty")
-            .isLength({ max: 256 })
+            // .withMessage("A comment cannot be empty")
+            .isLength({ min: 1, max: 256 })
             .withMessage("The length of the comment should not exceed 256 characters"),
     ],
 };

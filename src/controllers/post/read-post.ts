@@ -66,24 +66,20 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
 }
 
 async function getPost(req: Request, res: Response, next: NextFunction) {
+    const query = req.query as RequestQuery;
+    const params = req.params as RequestParams;
+
+    const postId = params.postId;
+    const isCreator = req.session.user?._id.toString();
+
     try {
-        const params = req.params as RequestParams;
-        const postId = params.postId;
-        const isCreator = req.session.user?._id.toString();
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            console.log(errors.array());
-            return res.status(422).render("post/" + postId, {
-                path: "post/" + postId,
-                errorMessage: errors.array()[0].msg,
-                validationErrors: errors.array(),
-                countError: errors.array().length,
-
-                isAccessToken: req.cookies.accessToken,
-                userSession: req.session.user,
-                isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
-            });
+        console.log("не прерывает?");
+        const COMMENTS_PER_PAGE: number = 2;
+        const page: number = +query.page || 1;
+        if (isNaN(page) || page < 1) {
+            const error = new Error("Invalid page number") as StatusError;
+            error.statusCode = 400;
+            return next(error);
         }
 
         const post = await PostSchema.findById(postId)
@@ -91,19 +87,43 @@ async function getPost(req: Request, res: Response, next: NextFunction) {
             .populate({
                 path: "comments",
                 select: "_id content createdAt updatedAt",
-                options: { sort: { createdAt: -1 } },
+                options: {
+                    sort: { createdAt: -1 },
+                    skip: (page - 1) * COMMENTS_PER_PAGE,
+                    limit: COMMENTS_PER_PAGE,
+                },
                 populate: {
                     path: "creator",
                     select: "_id email name ",
                 },
             });
+        const commentsCount = await PostSchema.findById(postId).then(
+            post => post?.comments.length || 0,
+        );
+        const totalPages = Math.ceil(commentsCount / COMMENTS_PER_PAGE);
+
+        if (page > totalPages && totalPages > 0) {
+            const error = new Error("Could not find comments.") as StatusError;
+            error.statusCode = 404;
+            return next(error);
+        }
 
         res.status(200).render("post/full-post", {
             path: "/post/" + postId,
+            comments: post?.comments,
+            cdComments: commentsCount, // общее количество комментариев
+            currentPage: page,
+            COMMENTS_PER_PAGE: COMMENTS_PER_PAGE,
+            hasNextPage: COMMENTS_PER_PAGE * page < commentsCount,
+            hasPreviousPage: page > 1,
+            nextPage: page + 1,
+            previousPage: page - 1,
+            lastPage: totalPages, // общее количество страниц
+
             paramId: postId,
             post: post,
             countComments: post?.comments.length,
-            comments: post?.comments,
+
             userSession: req.session.user,
             isCreator: isCreator,
             isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,

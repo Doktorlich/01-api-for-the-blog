@@ -3,30 +3,32 @@ import { RequestBody, RequestParams } from "../../types/post.types";
 import UserSchema from "../../models/user";
 import PostSchema from "../../models/post";
 import CommentSchema from "../../models/comment";
-import { validationResult } from "express-validator";
+import { param, validationResult } from "express-validator";
 
 async function createComment(req: Request, res: Response, next: NextFunction) {
-    const body = req.body as RequestBody;
-
-    const userId = req.session.user._id;
-    const postId = body.postId;
-    const content = body.content;
-
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        console.log(errors.array());
-        return res.status(422).render("post/" + postId, {
-            path: "post/" + postId,
-            errorMessage: errors.array()[0].msg,
-            validationErrors: errors.array(),
-            countError: errors.array().length,
-
-            isAccessToken: req.cookies.accessToken,
-            userSession: req.session.user,
-            isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
-        });
-    }
     try {
+        const body = req.body as RequestBody;
+
+        const userId = req.session.user._id;
+        const postId = body.postId;
+        const content = body.content;
+        // const errors = validationResult(req);
+        // console.log("postId", postId);
+        // if (!errors.isEmpty()) {
+        //     console.log("change comment", errors.array());
+        //     return res.status(404).render("post/full-post", {
+        //         path: `/post/+${postId}`,
+        //         paramId: postId,
+        //
+        //         validationErrors: errors.array(),
+        //         countError: errors.array().length,
+        //
+        //         isAccessToken: req.cookies.accessToken,
+        //         userSession: req.session.user,
+        //         isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
+        //         // post: post,
+        //     });
+        // }
         const user = await UserSchema.findById(userId);
         if (!user) {
             return res.status(422).render("error/404", {
@@ -45,6 +47,7 @@ async function createComment(req: Request, res: Response, next: NextFunction) {
                 isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
             });
         }
+
         const newComment = new CommentSchema({
             content: content,
             creator: user._id,
@@ -76,11 +79,12 @@ async function changeComment(req: Request, res: Response, next: NextFunction) {
     const content = body.content;
 
     const errors = validationResult(req);
+    console.log("postId", postId);
     if (!errors.isEmpty()) {
-        console.log(errors.array());
-        return res.status(422).render("post/" + postId, {
-            path: "post/" + postId,
-            errorMessage: errors.array()[0].msg,
+        console.log("change comment", errors.array());
+        return res.status(422).render("post/full-post", {
+            path: "/post/" + postId,
+            paramId: postId,
             validationErrors: errors.array(),
             countError: errors.array().length,
 

@@ -1,8 +1,8 @@
-
 form.comment-form(action=("/post/"+paramId +"/create-comment"), method="POST", class="hidden")
 	hr
 	input(type="hidden" name="postId" value=(paramId))
 	article.comment-form__content
+		//+validationError("content", "comment")
 		//section.comment-form__user-info
 		//	img.comment-form__user-image(src="/images/user-profile-img.svg")
 		//	p.comment-form__user-name Nickname
@@ -15,6 +15,6 @@ form.comment-form(action=("/post/"+paramId +"/create-comment"), method="POST", c
 					span.comment-form__count-span  256
 	.comment-form__button-list
 		button.comment-form__button.button-cancel(type="button") Cancel
-		button.comment-form__button(type="submit") Send
+		button.comment-form__button.button-send(type="submit") Send
 
 //script( src="/js/create-comment.js")
