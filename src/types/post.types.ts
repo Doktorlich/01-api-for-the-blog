@@ -1,4 +1,6 @@
 export type RequestBody = {
+    paramId: string;
+    commentId: string;
     _id: string;
     text: string;
     title: string;

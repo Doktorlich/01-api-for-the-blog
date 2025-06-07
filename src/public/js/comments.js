@@ -5,18 +5,35 @@ const list = document.querySelector(".comments__list-item");
 function toggleForm(event) {
     const clickedButtonToggle = event.target.closest(".button-toggle");
     if (!clickedButtonToggle) return;
-    console.log("1");
     const item = clickedButtonToggle.closest(".comments__item");
     const sectionComment = item.querySelector(".comments__comment");
     const sectionFieldComment = item.querySelector(".comment-form__field-comment");
     const textarea = item.querySelector(".comment-form__textarea");
+
     countSymbol = item.querySelector(".comment-form__count-span");
     textareaItem = textarea;
-    sectionComment.classList?.toggle("hidden");
 
-    sectionFieldComment.classList?.toggle("hidden");
-
-    textarea.focus();
+    const isCancel = clickedButtonToggle.textContent.trim().toLowerCase() === "cancel";
+    if (!isCancel) {
+        document.querySelectorAll(".comment-form__field-comment:not(.hidden)").forEach(section => {
+            if (section !== sectionFieldComment) {
+                section.classList.add("hidden");
+                section
+                    .closest(".comments__item")
+                    ?.querySelector(".comments__comment")
+                    ?.classList.remove("hidden");
+            }
+        });
+    }
+    sectionComment.classList.toggle("hidden");
+    sectionFieldComment.classList.toggle("hidden");
+    if (isCancel) {
+        if (textarea) textarea.value = "";
+        if (countSymbol) countSymbol.textContent = "0";
+    } else if (textarea) {
+        textarea.focus();
+        textarea.select();
+    }
 }
 
 list.addEventListener("click", toggleForm);

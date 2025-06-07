@@ -10,6 +10,9 @@
     border: 5px solid rgb(147, 59, 165);
     border-radius: 25px;
 }
+.form-submit{
+
+}
 .comments__user-info {
     display: flex;
     flex-direction: column;
@@ -68,7 +71,18 @@
 }
 .comments__updated-at {
 }
-
+.comment-form__field-comment {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.comments__list-button{
+    display: flex;
+    column-gap: 5px;
+    height: 30px;
+}
 .comment-form__field-comment .comments__list-button{
-    margin-top: 21px;
+    margin-top: 18px;
+    margin-left: auto;
 }

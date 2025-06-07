@@ -69,6 +69,82 @@ async function createComment(req: Request, res: Response, next: NextFunction) {
     }
 }
 
+async function changeComment(req: Request, res: Response, next: NextFunction) {
+    const body = req.body as RequestBody;
+    const commentId = body.commentId;
+    const postId = body.paramId;
+    const content = body.content;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log(errors.array());
+        return res.status(422).render("post/" + postId, {
+            path: "post/" + postId,
+            errorMessage: errors.array()[0].msg,
+            validationErrors: errors.array(),
+            countError: errors.array().length,
+
+            isAccessToken: req.cookies.accessToken,
+            userSession: req.session.user,
+            isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
+        });
+    }
+    const post = await PostSchema.findById(postId);
+    console.log(post?._id);
+    if (!post) {
+        res.status(422).render("error/404", {
+            statusCode: "422",
+            errorMessage:
+                "The server understands the type of post in the request body and the query syntax is correct, but the server was unable to process the instructions for that content.",
+            isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
+        });
+    }
+    try {
+        await CommentSchema.updateOne(
+            { _id: commentId },
+            {
+                $set: {
+                    content: content,
+                },
+            },
+        );
+        res.status(303).redirect("/post/" + post?._id);
+    } catch (err: any) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        console.log(err);
+        return next(err);
+    }
+}
+
+async function deleteComment(req: Request, res: Response, next: NextFunction) {
+    const body = req.body as RequestBody;
+    const commentId = body.commentId;
+    const postId = body.paramId;
+    const post = await PostSchema.findById(postId);
+    console.log(post?._id);
+    if (!post) {
+        res.status(422).render("error/404", {
+            statusCode: "422",
+            errorMessage:
+                "The server understands the type of post in the request body and the query syntax is correct, but the server was unable to process the instructions for that content.",
+            isLoggedIn: req.cookies.accessToken || req.cookies.refreshToken,
+        });
+    }
+    try {
+        await CommentSchema.findByIdAndDelete({ _id: commentId });
+        res.status(303).redirect("/post/" + post?._id);
+    } catch (err: any) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        console.log(err);
+        return next(err);
+    }
+}
 export const commentController = {
     createComment,
+    changeComment,
+    deleteComment,
 };

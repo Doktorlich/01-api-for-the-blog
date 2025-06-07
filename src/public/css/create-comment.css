@@ -37,7 +37,7 @@
     width: 100%;
     text-align: center;
 }
-.comment-form__field-comment {
+.comment-form__field {
     padding: 10px;
     display: flex;
     flex-direction: column;

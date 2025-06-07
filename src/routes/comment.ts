@@ -13,5 +13,11 @@ router.post(
     validatorComment.content,
     commentControllers.createComment as RequestHandler,
 );
-
+router.post(
+    "/change-comment",
+    isAuth,
+    validatorComment.content,
+    commentControllers.changeComment as RequestHandler,
+);
+router.post("/delete-comment", isAuth, commentControllers.deleteComment as RequestHandler);
 export default router;

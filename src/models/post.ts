@@ -26,9 +26,9 @@ const postSchema = new Schema(
     { timestamps: true },
 );
 
-postSchema.post("findOneAndDelete", async document => {
-    if (document) {
-        await UserModel.updateOne({ _id: document.creator }, { $pull: { posts: document._id } });
+postSchema.post("findOneAndDelete", async post => {
+    if (post) {
+        await UserModel.updateOne({ _id: post.creator }, { $pull: { posts: post._id } });
     }
 });
 

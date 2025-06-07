@@ -32,4 +32,6 @@ export const userControllers = {
 };
 export const commentControllers = {
     createComment: commentController.createComment,
+    changeComment: commentController.changeComment,
+    deleteComment: commentController.deleteComment,
 };
