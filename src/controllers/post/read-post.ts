@@ -33,6 +33,11 @@ async function getPosts(req: Request, res: Response, next: NextFunction) {
 
         const posts = await PostSchema.find()
             .populate("creator", "_id email name")
+            .populate({
+                path: "comments",
+                select: "_id content createdAt updatedAt",
+            })
+            .sort({ createdAt: -1 })
             .skip((page - 1) * POST_PER_PAGE)
             .limit(POST_PER_PAGE);
         if (page > totalPages && totalPages > 0) {
@@ -73,7 +78,6 @@ async function getPost(req: Request, res: Response, next: NextFunction) {
     const isCreator = req.session.user?._id.toString();
 
     try {
-        console.log("не прерывает?");
         const COMMENTS_PER_PAGE: number = 2;
         const page: number = +query.page || 1;
         if (isNaN(page) || page < 1) {
@@ -135,8 +139,10 @@ async function getPost(req: Request, res: Response, next: NextFunction) {
         next(err);
     }
 }
+async function searchPost(req: Request, res: Response, next: NextFunction) {}
 
 export const readPostControllers = {
     getPosts,
     getPost,
+    searchPost,
 };

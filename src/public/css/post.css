@@ -42,6 +42,14 @@
 .post__button-item {
 
 }
+.count-comments{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    font-size: 18px;
+    font-weight: bold;
+}
 .post__button {
     display: flex;
     justify-content: center;

@@ -15,6 +15,7 @@ export const postControllers = {
     getUpdatePost: updatePostControllers.getUpdatePost,
     updatePost: updatePostControllers.updatePost,
     deletePost: deletePostControllers.deletePost,
+    searchPost: readPostControllers.searchPost,
 };
 export const authControllers = {
     getLogin: loginControllers.getLogin,

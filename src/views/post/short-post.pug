@@ -18,5 +18,6 @@ if posts.length > 0
 							li.post__button-item
 								form(action="/post/"+post._id+"/delete", method="POST")
 									button.post__button(type="submit") Delete
+					li.post__button-item.count-comments Comments: #{post.comments.length}
 else
 	h1.content__title-h1 Posts not found

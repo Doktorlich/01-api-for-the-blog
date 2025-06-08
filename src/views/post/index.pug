@@ -3,12 +3,16 @@ extends ../includes/head-inc
 block styles
     link(rel="stylesheet", href="/css/post.css")
     link(rel="stylesheet", href="/css/post.css")
+    link(rel="stylesheet", href="/css/search.css")
 
 block title 
     title Test
 block content
-    main.content 
+    main.content
         hr
+        include ../components/search
+
         include short-post
 
         include ../includes/pagination-post
+    script(defer src="/js/search.js")
