@@ -10,12 +10,12 @@ import { commentController } from "./comment/comment";
 export const postControllers = {
     getPosts: readPostControllers.getPosts,
     getPost: readPostControllers.getPost,
+    getMyPosts: readPostControllers.getMyPosts,
     createPost: createPostControllers.createPost,
     getCreatePost: createPostControllers.getCreatePost,
     getUpdatePost: updatePostControllers.getUpdatePost,
     updatePost: updatePostControllers.updatePost,
     deletePost: deletePostControllers.deletePost,
-    searchPost: readPostControllers.searchPost,
 };
 export const authControllers = {
     getLogin: loginControllers.getLogin,

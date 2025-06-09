@@ -57,7 +57,7 @@ async function createPost(req: Request, res: Response, next: NextFunction) {
         userPosts.push(newPost._id);
         console.log("user populate", user);
         await user.save();
-        return res.status(201).redirect("/");
+        return res.status(201).redirect("/post/my-posts");
     } catch (err: any) {
         if (!err.statusCode) {
             err.statusCode = 500;

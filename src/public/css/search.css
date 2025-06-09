@@ -45,12 +45,15 @@
 
 .form-search__clean {
     position: absolute;
-    text-align: center;
+	display: flex;
+justify-content: center;
+	align-items: center;
     right: 5px;
     top: 2px;
     cursor: pointer;
     width: 25px;
     height: 20px;
+
 }
 .form-search__clean:hover {
     background-color: #cccccc;

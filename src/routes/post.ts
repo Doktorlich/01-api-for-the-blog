@@ -7,6 +7,8 @@ const router = Router();
 
 //ГЛАВНОЕ ПРАВИЛО: Сначала идут статически роуты и только потом динамические , иначе будет ошибка рендеринга
 // /post/...
+router.get("/my-posts", isAuth, postControllers.getMyPosts as RequestHandler);
+
 router.get("/create-post", isAuth, postControllers.getCreatePost as RequestHandler);
 router.post(
     "/create-post",

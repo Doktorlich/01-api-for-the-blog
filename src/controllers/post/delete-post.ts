@@ -25,7 +25,7 @@ async function deletePost(req: Request, res: Response, next: NextFunction) {
     }
 
     await PostSchema.findOneAndDelete({ _id: postId });
-    res.status(200).redirect("/post");
+    res.status(200).redirect("/post/my-posts");
 }
 export const deletePostControllers = {
     deletePost,

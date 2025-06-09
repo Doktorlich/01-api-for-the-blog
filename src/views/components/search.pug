@@ -1,8 +1,8 @@
-form.form-search(action="", method="POST")
+form.form-search(action=path)
 	label.form-search__label(for="input-search") Enter the names of the post
 	.form-search__content
 		.search-wrapper
-			input.form-search__input#input-search(type="text" name="search")
+			input.form-search__input#input-search(type="text" name="search" value=( oldSearch))
 			span.form-search__clean--border
-			span.form-search__clean.hidden Х
-		button.form-search__btn-submit(type="button") Search
+			button.form-search__clean.hidden(type="submit") Х
+		button.form-search__btn-submit(type="submit") Search

@@ -1,4 +1,5 @@
 export type RequestBody = {
+    search: string;
     paramId: string;
     commentId: string;
     _id: string;
@@ -13,4 +14,8 @@ export type RequestBody = {
     postId: string;
 };
 export type RequestParams = { postId: string };
-export type RequestQuery = { page: string };
+export type RequestQuery = {
+    search: string;
+    title: string;
+    page: string;
+};

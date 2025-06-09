@@ -90,7 +90,7 @@ async function updatePost(req: Request, res: Response, next: NextFunction) {
             },
         );
         console.log("updated post");
-        res.status(303).redirect("/");
+        res.status(303).redirect("/post/my-posts");
     } catch (err: any) {
         err.statusCode = err.statusCode || 500;
         console.log(err.statusCode);

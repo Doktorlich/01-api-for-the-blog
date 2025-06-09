@@ -22,6 +22,8 @@ html(lang="en")
                                p.main-header__pseudo-link(href="/post/create-post" class=(path==="/post/"+paramId ? "active-page":"")) Post
                         li.main-header__item
                             a.main-header__link(href="/post/create-post" class=(path==="/create-post"?"active-page":"")) Create post
+                        li.main-header__item
+                            a.main-header__link(href="/post/my-posts" class=(path === "/post/my-posts" ? "active-page" : "")) My Posts
                     ul.main-header__auth-list
                         if !isLoggedIn
                             li.main-header__item
