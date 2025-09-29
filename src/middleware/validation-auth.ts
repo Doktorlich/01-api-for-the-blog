@@ -4,7 +4,7 @@ const validatorSignIn = {
     email: [
         body("email")
             .isEmail()
-            .isLength({ min: 5 })
+
             .withMessage("Please enter a valid email.")
             .normalizeEmail()
             .custom(async (value, { req }) => {
